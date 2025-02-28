@@ -1,0 +1,100 @@
+﻿@page
+@model WebApplication1.Pages.approve_or_rejectModel
+
+@{
+    ViewData["Title"] = "Society Approval";
+}
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions {
+    public string GetAntiXsrfRequestToken()
+    {
+        string? token = Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken;
+        if (token != null)
+            return token;
+        return "";
+    }
+}
+<div class="text-center">
+    <h1 class="h3">Society Approval</h1>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name of Society</th>
+            <th>Description</th>
+            <th>Head email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var society in Model.Societies)
+        {
+            <tr>
+                <td>@society.Name</td>
+                <td>@society.Description</td>
+                <td>@society.ContactEmail</td>
+                <td>
+                    <button id="approve$@society.Id" class="btn btn-success approveButton">Approve</button>
+                    <button id="reject$@society.Id" class="btn btn-danger rejectButton">Reject</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        window.onload = function () {
+            var approveButtons = document.querySelectorAll('.approveButton');
+            var rejectButtons = document.querySelectorAll('.rejectButton');
+
+            approveButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var societyId = this.id.split('$')[1];
+                    approveSociety(societyId);
+                });
+            });
+
+            rejectButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var societyId = this.id.split('$')[1];
+                    rejectSociety(societyId);
+                });
+            });
+        }
+
+        function approveSociety(societyId) {
+            var url = '@Url.Page("approve_or_reject", "Approve")' + '&id=' + societyId;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'XSRF-TOKEN' : '@GetAntiXsrfRequestToken()',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ societyId: societyId })
+            });
+        }
+
+        function rejectSociety(societyId) {
+            var url = '@Url.Page("approve_or_reject", "Reject")' + '&id=' + societyId;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'XSRF-TOKEN': '@GetAntiXsrfRequestToken()',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ societyId: societyId })
+            });
+        }
+    </script>
+}
+
+
+
+
+
+
+
+
+

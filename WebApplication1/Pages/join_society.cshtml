@@ -1,0 +1,68 @@
+﻿@page
+@model bh2.Pages.join_societyModel
+@{
+    ViewData["Title"] = "Join Society";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Join Society</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+            .btn:hover {
+                background-color: #0056b3;
+            }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Join Society</h1>
+    <div class="form-group">
+        <label for="studentId">Student ID:</label>
+        <input type="text" id="studentId" name="studentId" required>
+    </div>
+    <div class="form-group">
+        <label for="reason">Reason for joining?</label>
+        <textarea id="reason" name="reason" rows="4" required></textarea>
+    </div>
+    <a href="#" class="btn btn-primary">Submit</a>
+
+</body>
+</html>

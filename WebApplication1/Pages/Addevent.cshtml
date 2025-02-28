@@ -1,0 +1,55 @@
+﻿@page
+@model WebApplication1.Pages.AddEventModel
+
+@{
+    ViewData["Title"] = "Add Event";
+}
+
+<h2>Add Event</h2>
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="EventInfo.Title">Title</label>
+        <input asp-for="EventInfo.Title" class="form-control" />
+        <span asp-validation-for="EventInfo.Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EventInfo.Description">Description</label>
+        <textarea asp-for="EventInfo.Description" class="form-control"></textarea>
+        <span asp-validation-for="EventInfo.Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EventInfo.EventDate">Event Date</label>
+        <input asp-for="EventInfo.EventDate" type="datetime-local" class="form-control" />
+        <span asp-validation-for="EventInfo.EventDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EventInfo.Location">Location</label>
+        <input asp-for="EventInfo.Location" class="form-control" />
+        <span asp-validation-for="EventInfo.Location" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EventInfo.Capacity">Capacity</label>
+        <input asp-for="EventInfo.Capacity" type="number" class="form-control" />
+        <span asp-validation-for="EventInfo.Capacity" class="text-danger"></span>
+    </div>
+
+    @* <input type="hidden" asp-for="EventInfo.SocietyId" /> *@
+
+    <div class="form-group">
+        <label asp-for="EventInfo.societyName">Society Name</label>
+        <select asp-for="EventInfo.societyName" asp-items="Model.SocietyOptions" class="form-control">
+            <option value="">Please select a society</option>
+        </select>
+        <span asp-validation-for="EventInfo.societyName" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Add Event</button>
+</form>

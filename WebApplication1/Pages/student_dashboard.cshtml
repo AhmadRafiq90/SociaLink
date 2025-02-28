@@ -1,0 +1,89 @@
+﻿@page
+@model WebApplication1.Pages.student_dashboardModel
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        .custom-card {
+            max-width: 300px; /* Adjust the max-width as needed */
+            margin: auto; /* This centers the card in the column */
+            border-radius: 20px; /* Curve the border */
+            transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition for hover effects */
+            text-decoration: none
+        }
+
+            .custom-card:hover {
+                transform: scale(1.15);
+                background-color: #f8f9fa;
+            }
+
+            .custom-card .btn-primary {
+                border-radius: 50px;
+            }
+
+        .custom-card-body {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Bootstrap Navbar as a Header -->
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid justify-content-center">
+            <a class="navbar-brand" href="#" style="font-size: 24px; font-weight:bold" title="Student Dashboard">Student Dashboard</a> <!-- Add title property here -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container mt-2" id="panel">
+
+        <div class="container mt-2" id="panel">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="card-body" style="text-align: center;">
+                        <button onclick="location.href='@Url.Page("view_societies_student")'" class="btn btn-primary btn-lg" style="width: 215px">View Societies</button>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card-body" style="text-align: center;">
+                        <button onclick="location.href='@Url.Page("view_joined_societies")'" class="btn btn-primary btn-lg" style="width: 215px">Manage Enrollments</button>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="card-body" style="text-align: center;">
+                        <button onclick="location.href='@Url.Page("ViewEvent")'" class="btn btn-primary btn-lg" style="width: 215px">View Events</button>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card-body" style="text-align: center;">
+                        <button onclick="location.href='@Url.Page("student_feeback")'" class="btn btn-primary btn-lg" style="width: 215px">Give Feedback</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

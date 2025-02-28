@@ -1,0 +1,49 @@
+﻿@page
+@model WebApplication1.Pages.ViewEventsModel
+
+@{
+    ViewData["Title"] = "View Events";
+}
+
+<h2>View Events</h2>
+
+<form method="get">
+    <div class="form-group mb-2">
+        <label for="selectedDate" class="mb-2">Select Date:</label>
+        <input type="date"  id="selectedDate" name="SelectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" class="form-control mb-2" />
+        <button type="submit" style="padding-top : 5px" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+@if (Model.Events.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Event Date</th>
+                <th>Location</th>
+                <th>Capacity</th>
+                <th>Society Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var eventItem in Model.Events)
+            {
+                <tr>
+                    <td>@eventItem.Title</td>
+                    <td>@eventItem.Description</td>
+                    <td>@eventItem.EventDate.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@eventItem.Location</td>
+                    <td>@eventItem.Capacity</td>
+                    <td>@eventItem.societyName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No approved events are available to view at this time.</p>
+}

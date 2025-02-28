@@ -1,0 +1,98 @@
+﻿@page
+@model WebApplication1.Pages.approveMembershipsModel
+@{
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions {
+    public string GetAntiXsrfRequestToken()
+    {
+        string? token = Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken;
+        if (token != null)
+            return token;
+        return "";
+    }
+}
+<div class="text-center">
+    <h1 class="h3">Society Approval</h1>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name of Member</th>
+            <th>Role</th>
+            <th>Request Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Memberships?.Count; i++)
+        {
+            string? name = Model.Names?[i];
+            <tr>
+                <td>@name</td>
+                <td>@Model.Memberships[i].Role</td>
+                <td>@Model.Memberships[i].JoinDate</td>
+                <td>
+                    <button id="approve$@Model.Memberships[i].Id" class="btn btn-success approveButton">Approve</button>
+                    <button id="reject$@Model.Memberships[i].Id" class="btn btn-danger rejectButton">Reject</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        window.onload = function () {
+            var approveButtons = document.querySelectorAll('.approveButton');
+            var rejectButtons = document.querySelectorAll('.rejectButton');
+
+            approveButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var membershipId = this.id.split('$')[1];
+                    approveSociety(membershipId);
+                });
+            });
+
+            rejectButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var membershipId = this.id.split('$')[1];
+                    rejectSociety(membershipId);
+                });
+            });
+        }
+
+        function approveSociety(membershipId) {
+            var url = '@Url.Page("approveMemberships", "Approve")' + '&id=' + membershipId;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'XSRF-TOKEN' : '@GetAntiXsrfRequestToken()',
+                    'Content-Type': 'application/json'
+                },
+            });
+        }
+
+        function rejectSociety(membershipId) {
+            var url = '@Url.Page("approveMemberships", "Reject")' + '&id=' + membershipId;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'XSRF-TOKEN': '@GetAntiXsrfRequestToken()',
+                    'Content-Type': 'application/json'
+                },
+            });
+        }
+    </script>
+} 
+
+
+
+
+
+
+
+
+

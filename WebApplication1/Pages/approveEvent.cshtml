@@ -1,0 +1,50 @@
+﻿@page
+@model WebApplication1.Pages.ApproveEventModel
+
+@{
+    ViewData["Title"] = "Approve/Reject Events";
+}
+
+<h2>Approve/Reject Events</h2>
+
+@if (Model.Events.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Event Date</th>
+                <th>Location</th>
+                <th>Capacity</th>
+                <th>Society Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var eventItem in Model.Events)
+            {
+                <tr>
+                    <td>@eventItem.Title</td>
+                    <td>@eventItem.Description</td>
+                    <td>@eventItem.EventDate.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@eventItem.Location</td>
+                    <td>@eventItem.Capacity</td>
+                    <td>@eventItem.societyName</td>
+                    <td>
+                        <form method="post" asp-page-handler="Approve" asp-route-id="@eventItem.Id">
+                            <button type="submit" class="btn btn-success">Approve</button>
+                        </form>
+                        <form method="post" asp-page-handler="Reject" asp-route-id="@eventItem.Id">
+                            <button type="submit" class="btn btn-danger">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No events pending approval.</p>
+}
