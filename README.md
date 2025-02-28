@@ -1,5 +1,3 @@
-# SociaLink
-
 # Socialink - Society Management System
 
 Socialink is a modern society management system built using **Razor Pages** and powered by **cloud storage** for seamless image management. This application helps societies and communities efficiently manage their members, events, announcements, and much more. 
